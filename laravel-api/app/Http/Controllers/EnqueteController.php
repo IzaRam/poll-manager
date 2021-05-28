@@ -114,7 +114,7 @@ class EnqueteController extends Controller
 			'enquete_id' => 'required',
 			'opcao_id' => 'required'
 		]);
-		$opcao = Opcoes::where('id', $id)->first();
+		$opcao = Opcoes::where('id', $request['opcao_id'])->first();
 		$opcao->update(['votos', ++$opcao->votos]);
 		return $opcao;
     }
