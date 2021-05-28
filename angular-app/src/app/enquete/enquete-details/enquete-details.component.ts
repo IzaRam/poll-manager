@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
  
@@ -12,10 +12,14 @@ import { Enquete } from '../enquete.model';
   templateUrl: './enquete-details.component.html',
   styleUrls: ['./enquete-details.component.css']
 })
-export class EnqueteDetailsComponent implements OnInit {
+export class EnqueteDetailsComponent implements OnInit, OnDestroy {
 
   id: number;
   enquete: Enquete;
+  interval: any;
+  ativa: boolean;
+  inicio: Date;
+  final: Date;
 
   subscription: Subscription;
 
@@ -27,12 +31,35 @@ export class EnqueteDetailsComponent implements OnInit {
 	this.subscription = this.enqueteService.votoAdicionado.subscribe(() => {
 		this.getEnquete();
 	});
+	this.interval = setInterval(() => {
+            this.getEnquete();
+        }, 5000);
   }
 
   getEnquete() {
 	this.enqueteService.getEnquete(this.id).subscribe(enquete => {
 		this.enquete = enquete;
-		console.log(this.enquete.titulo);
+		this.inicio = new Date(
+				parseInt(enquete.inicio.split("-")[2]),
+				parseInt(enquete.inicio.split("-")[1]) - 1,
+				parseInt(enquete.inicio.split("-")[0]),
+				parseInt(enquete.inicio.split("-")[3]),
+				parseInt(enquete.inicio.split("-")[4]));
+		this.final = new Date(
+				parseInt(enquete.final.split("-")[2]),
+				parseInt(enquete.final.split("-")[1]) - 1,
+				parseInt(enquete.final.split("-")[0]),
+				parseInt(enquete.final.split("-")[3]),
+				parseInt(enquete.final.split("-")[4]));
+
+		let agora = new Date();
+
+		if (this.inicio < agora && this.final > agora) {
+			this.ativa = true;
+		} else {
+			this.ativa = false;
+		}
+		console.log(this.ativa);
 	});
   }
 
@@ -42,6 +69,12 @@ export class EnqueteDetailsComponent implements OnInit {
 
   onAdicionarOpcao(opcaoForm) {
 	this.enqueteService.adicionarOpcao(this.id, opcaoForm.value.titulo);
+	opcaoForm.reset();
+  }
+
+  ngOnDestroy(): void {
+	this.subscription.unsubscribe();
+	clearInterval(this.interval);
   }
 
 }
