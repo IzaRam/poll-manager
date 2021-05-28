@@ -4,7 +4,7 @@
 
 Api implementada em PHP/Laravel usando JSON e o padrão REST, com banco de dados em MySQl.
 
-### End points da API
+### Endpoints da API
 
 ```
 GET /enquetes
