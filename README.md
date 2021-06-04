@@ -1,5 +1,17 @@
 # Gerenciador de Enquetes
 
+O projeto consiste de um gerenciador de enquetes, onde no back-end foi implementada uma API REST usando Laravel 8, e um banco de dados em MySQL para persistência dos dados.
+
+* CRUD completo (criação/leitura/edição/exclusão) para gerenciamento de enquete e opções.
+
+O front-end foi implementado usando Angular.
+
+* São listadas todas as enquetes cadastradas no banco com o título, descrição e data de início e término, apresentando todas as enquetes, não iniciadas, em andamento e finalizadas.
+
+* Se a enquete não estiver ativa entre data/hora início e data/hora fim, as opções e o botão de votar ficam desabilitados.
+
+* Os números de resultados são apresentados sempre que houver novo voto (realtime).
+
 ## Back-end
 
 Api implementada em PHP/Laravel usando JSON e o padrão REST, com banco de dados em MySQl.
