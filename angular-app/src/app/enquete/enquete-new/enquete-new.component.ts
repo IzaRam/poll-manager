@@ -27,13 +27,15 @@ export class EnqueteNewComponent implements OnInit {
   }
 
   onSubmit() {
-    // const newRecipe = new Recipe(
-    //   this.recipeForm.value['name'],
-    //   this.recipeForm.value['description'],
-    //   this.recipeForm.value['imagePath'],
-    //   this.recipeForm.value['ingredients']);
-      //this.recipeService.addRecipe(this.recipeForm.value);
-      //this.router.navigate(['recipes']);
+
+	  this.enqueteForm.value.inicio = this.enqueteForm.value['inicio-date']
+	  									+ "-"
+										+ this.enqueteForm.value['inicio-time'].replace(":", "-");
+	
+	  this.enqueteForm.value.final = this.enqueteForm.value['final-date']
+	  									+ "-"
+										+ this.enqueteForm.value['final-time'].replace(":", "-");
+
 	  this.enqueteService.addEnquete(this.enqueteForm.value);
 	  this.router.navigate(['enquetes']);
   }
@@ -56,8 +58,10 @@ export class EnqueteNewComponent implements OnInit {
     this.enqueteForm = new FormGroup({
       'titulo': new FormControl(enqueteTitulo, Validators.required),
       'descricao': new FormControl(enqueteDescricao, Validators.required),
-      'inicio': new FormControl(enqueteInicio, Validators.required),
-      'final': new FormControl(enqueteFinal, Validators.required),
+      'inicio-date': new FormControl(enqueteInicio, Validators.required),
+      'inicio-time': new FormControl(enqueteInicio, Validators.required),
+      'final-date': new FormControl(enqueteFinal, Validators.required),
+      'final-time': new FormControl(enqueteFinal, Validators.required),
       'opcoes': enqueteOpcoes
     });
   }

@@ -39,27 +39,43 @@
       </div>
 
       <div class="row">
-        <div class="col-xs-12">
+        <div class="col-md-6">
           <div class="form-group">
-            <label for="inicio">Inicio</label>
+            <label for="inicio">Data Inicio</label>
             <input
-            type="text"
-            id="inicio"
+            type="date"
             class="form-control"
-            formControlName="inicio">
+            formControlName="inicio-date">
+          </div>
+        </div>
+		<div class="col-md-6">
+          <div class="form-group">
+            <label for="inicio">Hora Inicio</label>
+            <input
+            type="time"
+            class="form-control"
+            formControlName="inicio-time">
           </div>
         </div>
       </div>
 
 	  <div class="row">
-        <div class="col-xs-12">
+        <div class="col-md-6">
           <div class="form-group">
-            <label for="final">Final</label>
+            <label for="final">Data Final</label>
             <input
-            type="text"
-            id="final"
+            type="date"
             class="form-control"
-            formControlName="final">
+            formControlName="final-date">
+		  </div>
+        </div>
+		<div class="col-md-6">	
+          <div class="form-group">
+            <label for="final">Hora Final</label>
+			<input
+            type="time"
+            class="form-control"
+            formControlName="final-time">
           </div>
         </div>
       </div>

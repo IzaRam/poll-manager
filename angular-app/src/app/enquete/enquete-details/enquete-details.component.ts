@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
  
 import { Subscription } from 'rxjs';
@@ -23,7 +23,9 @@ export class EnqueteDetailsComponent implements OnInit, OnDestroy {
 
   subscription: Subscription;
 
-  constructor(private route: ActivatedRoute, private enqueteService: EnqueteService) { }
+  constructor(private route: ActivatedRoute, 
+			  private enqueteService: EnqueteService,
+			  private router: Router) { }
 
   ngOnInit(): void {
 	this.id = this.route.snapshot.params['id'];
@@ -40,15 +42,15 @@ export class EnqueteDetailsComponent implements OnInit, OnDestroy {
 	this.enqueteService.getEnquete(this.id).subscribe(enquete => {
 		this.enquete = enquete;
 		this.inicio = new Date(
-				parseInt(enquete.inicio.split("-")[2]),
-				parseInt(enquete.inicio.split("-")[1]) - 1,
 				parseInt(enquete.inicio.split("-")[0]),
+				parseInt(enquete.inicio.split("-")[1]) - 1,
+				parseInt(enquete.inicio.split("-")[2]),
 				parseInt(enquete.inicio.split("-")[3]),
 				parseInt(enquete.inicio.split("-")[4]));
 		this.final = new Date(
-				parseInt(enquete.final.split("-")[2]),
-				parseInt(enquete.final.split("-")[1]) - 1,
 				parseInt(enquete.final.split("-")[0]),
+				parseInt(enquete.final.split("-")[1]) - 1,
+				parseInt(enquete.final.split("-")[2]),
 				parseInt(enquete.final.split("-")[3]),
 				parseInt(enquete.final.split("-")[4]));
 
@@ -59,7 +61,6 @@ export class EnqueteDetailsComponent implements OnInit, OnDestroy {
 		} else {
 			this.ativa = false;
 		}
-		console.log(this.ativa);
 	});
   }
 
@@ -70,6 +71,11 @@ export class EnqueteDetailsComponent implements OnInit, OnDestroy {
   onAdicionarOpcao(opcaoForm) {
 	this.enqueteService.adicionarOpcao(this.id, opcaoForm.value.titulo);
 	opcaoForm.reset();
+  }
+
+  onRemoverEnquete() {
+	this.enqueteService.removerEnquete(this.id);
+	this.router.navigate(['/enquetes']);
   }
 
   ngOnDestroy(): void {

@@ -22,7 +22,6 @@ export class EnqueteListComponent implements OnInit {
   }
 
   onEnqueteSelect(id: number) {
-	console.log(id);
 	this.router.navigate(['/enquetes', id]);
   }
 

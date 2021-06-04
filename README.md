@@ -4,6 +4,69 @@
 
 Api implementada em PHP/Laravel usando JSON e o padrão REST, com banco de dados em MySQl.
 
+### Como Instalar
+
+* Clone o repositório:
+
+```
+git clone https://github.com/IzaRam/poll-manager.git
+```
+
+* Na pasta raiz do projeto da API, execute o seguinte comando para instalar as dependências necessárias:
+
+```
+composer install
+```
+
+* Crie o arquivo de configuração de variáveis de ambiente:
+
+```
+cp .env.example .env
+```
+
+Configure as variáveis de ambiente e a conexão com o bando de dados no arquivo .env:
+
+```
+DB_CONNECTION=mysql
+DB_HOST="HOST_NAME"
+DB_PORT="PORT, DEFAULT=3306"
+DB_DATABASE="DATABASE_NAME"
+DB_USERNAME="YOUR_MYSQL_USERNAME"
+DB_PASSWORD="YOUR_MEYSQL_PASSWORD"
+```
+
+* Execute o seguinte comando para gerar as tabelas no banco de dados:
+
+```
+php artisan migrate
+```
+
+* Execute para gerar uma nova key para a aplicação:
+
+```
+php artisan key:generate
+```
+
+* Execute o seguinte comando para iniciar o servidor:
+
+```
+php artisan serve
+```
+
+* Acesse no navegador: http://localhost:8000 ou a url que você tiver configurado.
+
+
+### Instalar usando o Docker:
+
+A API possuí um arquivo docker-compose.yml configurado, para instalar usando o docker basta executar o seguinte comando:
+
+```
+docker-compose up -d
+```
+
+Em seguida pode ser realizadas as mesmas configurações das intruções anteriores tanto no container do app, quanto no do banco de dados.
+
+
 ### Endpoints da API
 
 ```
@@ -59,14 +122,41 @@ POST /enquetes/opcoes/votar/{id}
 
 ## Front-end
 
-SPA implementado em Angular
+SPA implementado em Angular.
+
+### Como Instalar
+
+* Na pasta raiz do projeto do App, execute o seguinte comando para instalar as dependências necessárias:
+
+```
+npm install
+```
+
+* Execute o seguinte comando para iniciar o servidor da aplicação:
+
+```
+npm start
+```
+
+* Acesse no navegador a url: http://localhost:4200
+
+
+### Instalar usando o Docker:
+
+O app possuí um arquivo docker-compose.yml configurado, para instalar usando o docker basta executar o seguinte comando:
+
+```
+docker-compose up -d
+```
+
+Todas as configurações necessárias já estão feitas no docker-compose.yml, então basta acessar a aplicação no navegador na url:  http://localhost:4200
+
 
 ### App Overview
 
 ![home1](images/home1.png)
 ![home2](images/home2.png)
 ![adicionar1](images/adicionar.png)
-![adicionar2](images/adicionar2.png)
 ![enquete1](images/enquete1.png)
 ![enquete2](images/enquete2.png)
 

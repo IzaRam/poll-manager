@@ -59,4 +59,10 @@ export class EnqueteService {
 			this.votoAdicionado.next();
 		});
 	}
+
+	removerEnquete(enquete_id: number) {
+		this.http.delete(this.baseUrl + enquete_id).subscribe(response => {
+			console.log(response);
+		});
+	}
 }
