@@ -41,18 +41,14 @@ export class EnqueteDetailsComponent implements OnInit, OnDestroy {
   getEnquete() {
 	this.enqueteService.getEnquete(this.id).subscribe(enquete => {
 		this.enquete = enquete;
-		this.inicio = new Date(
-				parseInt(enquete.inicio.split("-")[0]),
-				parseInt(enquete.inicio.split("-")[1]) - 1,
-				parseInt(enquete.inicio.split("-")[2]),
-				parseInt(enquete.inicio.split("-")[3]),
-				parseInt(enquete.inicio.split("-")[4]));
-		this.final = new Date(
-				parseInt(enquete.final.split("-")[0]),
-				parseInt(enquete.final.split("-")[1]) - 1,
-				parseInt(enquete.final.split("-")[2]),
-				parseInt(enquete.final.split("-")[3]),
-				parseInt(enquete.final.split("-")[4]));
+
+		let inicioStr = enquete.inicio.split("-");
+		let inicio = inicioStr.map(num => parseInt(num));
+		this.inicio = new Date(inicio[0], inicio[1] - 1, inicio[2],	inicio[3], inicio[4]);
+
+		let finalStr = enquete.final.split("-");
+		let final = finalStr.map(num => parseInt(num));
+		this.final = new Date(final[0], final[1] - 1, final[2],	final[3], final[4]);
 
 		let agora = new Date();
 
@@ -65,7 +61,11 @@ export class EnqueteDetailsComponent implements OnInit, OnDestroy {
   }
 
   onOptionSelect(opcao_id: number) {
-	this.enqueteService.votarEnquete(this.id, opcao_id);
+	if (this.ativa) {
+		this.enqueteService.votarEnquete(this.id, opcao_id);
+	} else {
+		alert("Enquete não está em andamento no momento!");
+	}
   }
 
   onAdicionarOpcao(opcaoForm) {
@@ -76,6 +76,10 @@ export class EnqueteDetailsComponent implements OnInit, OnDestroy {
   onRemoverEnquete() {
 	this.enqueteService.removerEnquete(this.id);
 	this.router.navigate(['/enquetes']);
+  }
+
+  onEditarEnquete() {
+	this.router.navigate(['/editar', this.id]);
   }
 
   ngOnDestroy(): void {

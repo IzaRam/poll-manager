@@ -118,4 +118,26 @@ class EnqueteController extends Controller
 		$opcao->update(['votos', ++$opcao->votos]);
 		return $opcao;
     }
+
+	/**
+	 * Deletar todas as opções para uma enquete existente		
+	 *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function deleteOptions($id)
+    {
+		$enquete = Enquete::where('id', $id)->first();
+		if (!$enquete) {
+			return response([
+					'message' => 'Nenhuma enquete encontrada com o id informado'
+			], 404);
+		}
+		
+		foreach($enquete->getOptions as $option) {
+			Opcoes::destroy($option->id);
+		}
+		return response(['message' => 'Todas as opcoes deletadas para o id informado!'], 200);
+    }
 }

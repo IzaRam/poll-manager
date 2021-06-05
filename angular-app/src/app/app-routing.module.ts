@@ -9,7 +9,8 @@ const routes: Routes = [
 	{ path: '', redirectTo: '/enquetes', pathMatch: 'full' },
 	{ path: 'enquetes', component: EnqueteListComponent },
 	{ path: 'enquetes/:id', component: EnqueteDetailsComponent },
-	{ path: 'adicionar', component: EnqueteNewComponent }
+	{ path: 'adicionar', component: EnqueteNewComponent },
+	{ path: 'editar/:id', component: EnqueteNewComponent }
 ];
 
 @NgModule({

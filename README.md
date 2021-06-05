@@ -166,7 +166,6 @@ Todas as configurações necessárias já estão feitas no docker-compose.yml, e
 
 ### App Overview
 
-![home1](images/home1.png)
 ![home2](images/home2.png)
 ![adicionar1](images/adicionar.png)
 ![enquete1](images/enquete1.png)

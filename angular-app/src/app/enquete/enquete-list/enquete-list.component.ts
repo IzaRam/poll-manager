@@ -16,7 +16,30 @@ export class EnqueteListComponent implements OnInit {
   constructor(private enqueteService: EnqueteService, private router: Router) { }
 
   ngOnInit(): void {
+	this.getEnquetes();	
+  }
+
+  getEnquetes() {
 	this.enqueteService.getEnquetes().subscribe(enquetes => {
+		let test = enquetes.map(enq => {
+			let inicioTemp = enq.inicio.split("-");
+			let inicio = inicioTemp.map(val => parseInt(val));
+			enq['dateInicio'] = new Date(inicio[0], inicio[1] - 1, inicio[2], inicio[3], inicio[4]);
+			
+			let finalTemp = enq.final.split("-");
+			let final = finalTemp.map(val => parseInt(val));
+			enq['dateFinal'] = new Date(final[0], final[1] - 1, final[2], final[3], final[4]);
+
+			let agora = new Date();
+
+			if (enq['dateInicio'] < agora && enq['dateFinal'] > agora) {
+				enq['situacao'] = "Em Andamento";
+			} else if (agora < enq['dateInicio']) {
+				enq['situacao'] = "Não Iniciada";
+			} else {
+				enq['situacao'] = "Finalizada";
+			}
+		});
 		this.enquetes = enquetes;
 	});	
   }

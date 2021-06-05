@@ -23,6 +23,7 @@ Route::delete('/enquetes/{id}', [EnqueteController::class, 'destroy']);
 
 Route::post('/enquetes/opcoes/{id}', [EnqueteController::class, 'opcoes']);
 Route::post('/enquetes/opcoes/votar/{id}', [EnqueteController::class, 'votar']);
+Route::delete('/enquetes/opcoes/{id}', [EnqueteController::class, 'deleteOptions']);
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();

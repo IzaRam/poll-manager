@@ -26,16 +26,25 @@ export class EnqueteService {
 
 	addEnquete(enquete) {
 		const enqueteNew = new Enquete(0, enquete.titulo, enquete.descricao, enquete.inicio, enquete.final, {});
-		let opcoes = [];
-		if (enquete.opcoes.length > 0) {
-			opcoes = enquete.opcoes;
-		}
 		this.http.post(this.baseUrl, enqueteNew).subscribe(response => {
 			console.log(response);
-			for (let i = 0; i < opcoes.length; i++) {
-				this.adicionarOpcao(response['id'], opcoes[i].name);
+			for (let i = 0; i < enquete.opcoes.length; i++) {
+				this.adicionarOpcao(response['id'], enquete.opcoes[i].name);
 			}
 		})
+	}
+
+	updateEnquete(enquete_id: number, enquete) {
+		const enqueteNew = new Enquete(0, enquete.titulo, enquete.descricao, enquete.inicio, enquete.final, {});
+		this.http.delete(this.baseUrl + "opcoes/" + enquete_id).subscribe(response => {
+			console.log(response);
+		});
+		this.http.put(this.baseUrl + enquete_id, enqueteNew).subscribe(response => {
+			console.log(response);
+			for (let i = 0; i < enquete.opcoes.length; i++) {
+				this.adicionarOpcao(response['id'], enquete.opcoes[i].name);
+			}
+		});
 	}
 
 	adicionarOpcao(enquete_id: number, opcao_titulo: string) {
